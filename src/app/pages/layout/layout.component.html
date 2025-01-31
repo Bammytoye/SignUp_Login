@@ -1,0 +1,77 @@
+<nav class="bg-gray-800 px-6 py-2 shadow-lg">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- Logo or App Name -->
+    <div>
+      <p class="text-2xl font-bold text-white">Zeke App</p>
+    </div>
+
+    <!-- Hamburger Menu (Mobile Only) -->
+    <div class="lg:hidden">
+      <button
+        (click)="toggleMobileMenu()"
+        class="text-white focus:outline-none"
+        aria-label="Toggle mobile menu"
+      >
+        <svg
+          class="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16m-7 6h7"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Navigation Links (Desktop Only) -->
+    <div class="hidden lg:flex space-x-8 text-lg">
+      <p
+        *ngFor="let link of navLinks"
+        [routerLink]="link.path"
+        class="text-white hover:text-gray-400 transition duration-300 cursor-pointer"
+      >
+        {{ link.label }}
+      </p>
+    </div>
+
+    <!-- User Email and Logout Button (Desktop Only) -->
+    <div class="hidden lg:flex items-center space-x-4">
+      <span class="text-white text-lg">{{ loggedUser?.email }}</span>
+      <button
+        type="button"
+        (click)="onLogoff()"
+        class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300"
+      >
+        Log Out
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu (Hidden by Default) -->
+  <div *ngIf="isMobileMenuOpen" class="lg:hidden mt-4">
+    <p
+      *ngFor="let link of navLinks"
+      [routerLink]="link.path"
+      class="block text-white hover:text-gray-400 py-2 cursor-pointer"
+    >
+      {{ link.label }}
+    </p>
+    <div class="mt-4">
+      <span class="text-white">{{ loggedUser?.email }}</span>
+      <button
+        type="button"
+        (click)="onLogoff()"
+        class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300 mt-2"
+      >
+        Log Out
+      </button>
+    </div>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>
